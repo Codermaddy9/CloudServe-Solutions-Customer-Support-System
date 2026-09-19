@@ -1,31 +1,57 @@
-name: Continuous Integration & Verification Gate
+name: CI
+
+# Runs the same two commands the README documents, so that a green build is
+# evidence the documented instructions work on a machine that is not the
+# author's. This is the continuous version of the clean-checkout rehearsal the
+# Build Specification asks for.
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
+  workflow_dispatch:
 
 jobs:
-  test:
+  verify:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12"]
 
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v4
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: ${{ matrix.python-version }}
+          cache: pip
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Test Suite
-        run: |
-          pytest tests/
+      - name: Run the test suite
+        run: python -m pytest tests/ -v
 
-      - name: Run Evaluation Harness
+      - name: Run the unattended evaluation harness
         run: |
-          python -m evaluation.harness
+          python -m evaluation.harness \
+            --input 05_Datasets/validation_tickets.json \
+            --output evaluation/ci_results/
+
+      - name: Confirm the harness produced a metrics report
+        run: |
+          test -f evaluation/ci_results/metrics_report.json
+          test -f evaluation/ci_results/metrics_report.md
+          python -c "import json,sys; m=json.load(open('evaluation/ci_results/metrics_report.json')); assert m['governance']['decision_log_reconciled'], 'decision log did not reconcile'; assert m['guardrail_probes']['status']=='PASS', 'guardrail probes failed'; print('reconciliation and guardrail probes OK')"
+
+      - name: Upload evaluation artefacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluation-results-py${{ matrix.python-version }}
+          path: evaluation/ci_results/
