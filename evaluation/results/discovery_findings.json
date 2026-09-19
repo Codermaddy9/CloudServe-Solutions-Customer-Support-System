@@ -1,0 +1,470 @@
+{
+  "corpus": {
+    "tickets_analysed": 500,
+    "documentation_articles": 29,
+    "documentation_articles_never_cited_as_expected": [],
+    "expected_doc_ids_not_present_in_corpus": []
+  },
+  "headline": {
+    "answerable_from_documentation_pct": 71.4,
+    "historic_first_contact_resolution_pct": 43.8,
+    "delivery_gap_points": 27.6,
+    "historic_escalation_pct": 56.2,
+    "escalations_that_were_documented_pct": 49.11,
+    "mean_csat": 2.97,
+    "median_resolution_minutes": 214.0,
+    "mean_resolution_minutes": 421.7,
+    "repeat_contact_pct": 21.6
+  },
+  "distribution": {
+    "by_channel": {
+      "email": 212,
+      "chat": 155,
+      "docs_comment": 78,
+      "forum": 55
+    },
+    "by_intent": {
+      "data_export": 29,
+      "data_residency": 29,
+      "rollback_request": 28,
+      "deployment_failure": 27,
+      "compliance_request": 26,
+      "sso_configuration": 26,
+      "security_incident": 26,
+      "database_issue": 26,
+      "api_usage_question": 24,
+      "billing_query": 24,
+      "performance_degradation": 23,
+      "quota_or_overage": 23,
+      "account_access": 22,
+      "onboarding": 22,
+      "integration_help": 21,
+      "webhook_issue": 21,
+      "feature_request": 20,
+      "authentication_failure": 20,
+      "api_key_issue": 18,
+      "configuration_help": 17,
+      "unclear_request": 15,
+      "rate_limit": 13
+    },
+    "by_urgency": {
+      "medium": 226,
+      "high": 146,
+      "low": 128
+    },
+    "by_expected_route": {
+      "auto_respond": 311,
+      "escalate": 189
+    },
+    "by_tier": {
+      "standard": 253,
+      "business": 164,
+      "enterprise": 83
+    },
+    "by_language_fluency": {
+      "fluent": 380,
+      "non_fluent": 120
+    },
+    "by_region": {
+      "north_america": 170,
+      "europe": 151,
+      "asia_pacific": 119,
+      "latin_america": 60
+    }
+  },
+  "segments": {
+    "by_channel": {
+      "chat": {
+        "tickets": 155,
+        "share_of_total_pct": 31.0,
+        "first_contact_resolution_pct": 44.52,
+        "escalated_pct": 55.48,
+        "repeat_contact_pct": 19.35,
+        "answerable_from_docs_pct": 76.77,
+        "mean_csat": 2.72,
+        "median_resolution_minutes": 209
+      },
+      "docs_comment": {
+        "tickets": 78,
+        "share_of_total_pct": 15.6,
+        "first_contact_resolution_pct": 34.62,
+        "escalated_pct": 65.38,
+        "repeat_contact_pct": 33.33,
+        "answerable_from_docs_pct": 61.54,
+        "mean_csat": 3.17,
+        "median_resolution_minutes": 465.5
+      },
+      "email": {
+        "tickets": 212,
+        "share_of_total_pct": 42.4,
+        "first_contact_resolution_pct": 44.81,
+        "escalated_pct": 55.19,
+        "repeat_contact_pct": 20.75,
+        "answerable_from_docs_pct": 72.17,
+        "mean_csat": 3.08,
+        "median_resolution_minutes": 193.0
+      },
+      "forum": {
+        "tickets": 55,
+        "share_of_total_pct": 11.0,
+        "first_contact_resolution_pct": 50.91,
+        "escalated_pct": 49.09,
+        "repeat_contact_pct": 14.55,
+        "answerable_from_docs_pct": 67.27,
+        "mean_csat": 2.98,
+        "median_resolution_minutes": 54
+      }
+    },
+    "by_tier": {
+      "business": {
+        "tickets": 164,
+        "share_of_total_pct": 32.8,
+        "first_contact_resolution_pct": 48.17,
+        "escalated_pct": 51.83,
+        "repeat_contact_pct": 23.17,
+        "answerable_from_docs_pct": 75.0,
+        "mean_csat": 2.91,
+        "median_resolution_minutes": 141.0
+      },
+      "enterprise": {
+        "tickets": 83,
+        "share_of_total_pct": 16.6,
+        "first_contact_resolution_pct": 37.35,
+        "escalated_pct": 62.65,
+        "repeat_contact_pct": 24.1,
+        "answerable_from_docs_pct": 71.08,
+        "mean_csat": 3.05,
+        "median_resolution_minutes": 369
+      },
+      "standard": {
+        "tickets": 253,
+        "share_of_total_pct": 50.6,
+        "first_contact_resolution_pct": 43.08,
+        "escalated_pct": 56.92,
+        "repeat_contact_pct": 19.76,
+        "answerable_from_docs_pct": 69.17,
+        "mean_csat": 2.98,
+        "median_resolution_minutes": 266
+      }
+    },
+    "by_language_fluency": {
+      "fluent": {
+        "tickets": 380,
+        "share_of_total_pct": 76.0,
+        "first_contact_resolution_pct": 43.16,
+        "escalated_pct": 56.84,
+        "repeat_contact_pct": 22.37,
+        "answerable_from_docs_pct": 71.05,
+        "mean_csat": 2.95,
+        "median_resolution_minutes": 216.5
+      },
+      "non_fluent": {
+        "tickets": 120,
+        "share_of_total_pct": 24.0,
+        "first_contact_resolution_pct": 45.83,
+        "escalated_pct": 54.17,
+        "repeat_contact_pct": 19.17,
+        "answerable_from_docs_pct": 72.5,
+        "mean_csat": 3.04,
+        "median_resolution_minutes": 198.0
+      }
+    },
+    "by_urgency": {
+      "high": {
+        "tickets": 146,
+        "share_of_total_pct": 29.2,
+        "first_contact_resolution_pct": 39.73,
+        "escalated_pct": 60.27,
+        "repeat_contact_pct": 20.55,
+        "answerable_from_docs_pct": 72.6,
+        "mean_csat": 2.86,
+        "median_resolution_minutes": 342.5
+      },
+      "low": {
+        "tickets": 128,
+        "share_of_total_pct": 25.6,
+        "first_contact_resolution_pct": 48.44,
+        "escalated_pct": 51.56,
+        "repeat_contact_pct": 14.84,
+        "answerable_from_docs_pct": 72.66,
+        "mean_csat": 3.06,
+        "median_resolution_minutes": 132.5
+      },
+      "medium": {
+        "tickets": 226,
+        "share_of_total_pct": 45.2,
+        "first_contact_resolution_pct": 43.81,
+        "escalated_pct": 56.19,
+        "repeat_contact_pct": 26.11,
+        "answerable_from_docs_pct": 69.91,
+        "mean_csat": 2.99,
+        "median_resolution_minutes": 187.5
+      }
+    },
+    "by_region": {
+      "asia_pacific": {
+        "tickets": 119,
+        "share_of_total_pct": 23.8,
+        "first_contact_resolution_pct": 39.5,
+        "escalated_pct": 60.5,
+        "repeat_contact_pct": 21.85,
+        "answerable_from_docs_pct": 63.87,
+        "mean_csat": 2.94,
+        "median_resolution_minutes": 292
+      },
+      "europe": {
+        "tickets": 151,
+        "share_of_total_pct": 30.2,
+        "first_contact_resolution_pct": 43.71,
+        "escalated_pct": 56.29,
+        "repeat_contact_pct": 21.85,
+        "answerable_from_docs_pct": 76.16,
+        "mean_csat": 3.01,
+        "median_resolution_minutes": 198
+      },
+      "latin_america": {
+        "tickets": 60,
+        "share_of_total_pct": 12.0,
+        "first_contact_resolution_pct": 38.33,
+        "escalated_pct": 61.67,
+        "repeat_contact_pct": 25.0,
+        "answerable_from_docs_pct": 71.67,
+        "mean_csat": 2.73,
+        "median_resolution_minutes": 235.0
+      },
+      "north_america": {
+        "tickets": 170,
+        "share_of_total_pct": 34.0,
+        "first_contact_resolution_pct": 48.82,
+        "escalated_pct": 51.18,
+        "repeat_contact_pct": 20.0,
+        "answerable_from_docs_pct": 72.35,
+        "mean_csat": 3.05,
+        "median_resolution_minutes": 109.5
+      }
+    }
+  },
+  "fairness_baseline": {
+    "tier_fcr": {
+      "best_segment": "business",
+      "best_value": 48.17,
+      "worst_segment": "enterprise",
+      "worst_value": 37.35,
+      "spread_points": 10.82
+    },
+    "fluency_fcr": {
+      "best_segment": "non_fluent",
+      "best_value": 45.83,
+      "worst_segment": "fluent",
+      "worst_value": 43.16,
+      "spread_points": 2.67
+    },
+    "fluency_csat": {
+      "best_segment": "non_fluent",
+      "best_value": 3.04,
+      "worst_segment": "fluent",
+      "worst_value": 2.95,
+      "spread_points": 0.09
+    }
+  },
+  "effort_by_intent": {
+    "security_incident": {
+      "tickets": 26,
+      "share_of_volume_pct": 5.2,
+      "total_minutes": 20434,
+      "share_of_effort_pct": 9.69,
+      "mean_minutes_per_ticket": 785.9,
+      "answerable_from_docs_pct": 53.85
+    },
+    "compliance_request": {
+      "tickets": 26,
+      "share_of_volume_pct": 5.2,
+      "total_minutes": 17663,
+      "share_of_effort_pct": 8.38,
+      "mean_minutes_per_ticket": 679.3,
+      "answerable_from_docs_pct": 65.38
+    },
+    "data_residency": {
+      "tickets": 29,
+      "share_of_volume_pct": 5.8,
+      "total_minutes": 14936,
+      "share_of_effort_pct": 7.08,
+      "mean_minutes_per_ticket": 515.0,
+      "answerable_from_docs_pct": 72.41
+    },
+    "feature_request": {
+      "tickets": 20,
+      "share_of_volume_pct": 4.0,
+      "total_minutes": 14477,
+      "share_of_effort_pct": 6.87,
+      "mean_minutes_per_ticket": 723.9,
+      "answerable_from_docs_pct": 0.0
+    },
+    "deployment_failure": {
+      "tickets": 27,
+      "share_of_volume_pct": 5.4,
+      "total_minutes": 13038,
+      "share_of_effort_pct": 6.18,
+      "mean_minutes_per_ticket": 482.9,
+      "answerable_from_docs_pct": 70.37
+    },
+    "performance_degradation": {
+      "tickets": 23,
+      "share_of_volume_pct": 4.6,
+      "total_minutes": 12495,
+      "share_of_effort_pct": 5.93,
+      "mean_minutes_per_ticket": 543.3,
+      "answerable_from_docs_pct": 73.91
+    },
+    "database_issue": {
+      "tickets": 26,
+      "share_of_volume_pct": 5.2,
+      "total_minutes": 11887,
+      "share_of_effort_pct": 5.64,
+      "mean_minutes_per_ticket": 457.2,
+      "answerable_from_docs_pct": 69.23
+    },
+    "integration_help": {
+      "tickets": 21,
+      "share_of_volume_pct": 4.2,
+      "total_minutes": 10944,
+      "share_of_effort_pct": 5.19,
+      "mean_minutes_per_ticket": 521.1,
+      "answerable_from_docs_pct": 76.19
+    },
+    "rollback_request": {
+      "tickets": 28,
+      "share_of_volume_pct": 5.6,
+      "total_minutes": 9799,
+      "share_of_effort_pct": 4.65,
+      "mean_minutes_per_ticket": 350.0,
+      "answerable_from_docs_pct": 75.0
+    },
+    "billing_query": {
+      "tickets": 24,
+      "share_of_volume_pct": 4.8,
+      "total_minutes": 9428,
+      "share_of_effort_pct": 4.47,
+      "mean_minutes_per_ticket": 392.8,
+      "answerable_from_docs_pct": 87.5
+    },
+    "authentication_failure": {
+      "tickets": 20,
+      "share_of_volume_pct": 4.0,
+      "total_minutes": 8988,
+      "share_of_effort_pct": 4.26,
+      "mean_minutes_per_ticket": 449.4,
+      "answerable_from_docs_pct": 70.0
+    },
+    "api_usage_question": {
+      "tickets": 24,
+      "share_of_volume_pct": 4.8,
+      "total_minutes": 8540,
+      "share_of_effort_pct": 4.05,
+      "mean_minutes_per_ticket": 355.8,
+      "answerable_from_docs_pct": 95.83
+    },
+    "data_export": {
+      "tickets": 29,
+      "share_of_volume_pct": 5.8,
+      "total_minutes": 8486,
+      "share_of_effort_pct": 4.02,
+      "mean_minutes_per_ticket": 292.6,
+      "answerable_from_docs_pct": 93.1
+    },
+    "unclear_request": {
+      "tickets": 15,
+      "share_of_volume_pct": 3.0,
+      "total_minutes": 7735,
+      "share_of_effort_pct": 3.67,
+      "mean_minutes_per_ticket": 515.7,
+      "answerable_from_docs_pct": 0.0
+    },
+    "webhook_issue": {
+      "tickets": 21,
+      "share_of_volume_pct": 4.2,
+      "total_minutes": 7408,
+      "share_of_effort_pct": 3.51,
+      "mean_minutes_per_ticket": 352.8,
+      "answerable_from_docs_pct": 76.19
+    },
+    "account_access": {
+      "tickets": 22,
+      "share_of_volume_pct": 4.4,
+      "total_minutes": 6381,
+      "share_of_effort_pct": 3.03,
+      "mean_minutes_per_ticket": 290.0,
+      "answerable_from_docs_pct": 77.27
+    },
+    "quota_or_overage": {
+      "tickets": 23,
+      "share_of_volume_pct": 4.6,
+      "total_minutes": 6015,
+      "share_of_effort_pct": 2.85,
+      "mean_minutes_per_ticket": 261.5,
+      "answerable_from_docs_pct": 86.96
+    },
+    "configuration_help": {
+      "tickets": 17,
+      "share_of_volume_pct": 3.4,
+      "total_minutes": 5856,
+      "share_of_effort_pct": 2.78,
+      "mean_minutes_per_ticket": 344.5,
+      "answerable_from_docs_pct": 58.82
+    },
+    "api_key_issue": {
+      "tickets": 18,
+      "share_of_volume_pct": 3.6,
+      "total_minutes": 5337,
+      "share_of_effort_pct": 2.53,
+      "mean_minutes_per_ticket": 296.5,
+      "answerable_from_docs_pct": 66.67
+    },
+    "sso_configuration": {
+      "tickets": 26,
+      "share_of_volume_pct": 5.2,
+      "total_minutes": 4967,
+      "share_of_effort_pct": 2.36,
+      "mean_minutes_per_ticket": 191.0,
+      "answerable_from_docs_pct": 84.62
+    },
+    "onboarding": {
+      "tickets": 22,
+      "share_of_volume_pct": 4.4,
+      "total_minutes": 4447,
+      "share_of_effort_pct": 2.11,
+      "mean_minutes_per_ticket": 202.1,
+      "answerable_from_docs_pct": 90.91
+    },
+    "rate_limit": {
+      "tickets": 13,
+      "share_of_volume_pct": 2.6,
+      "total_minutes": 1588,
+      "share_of_effort_pct": 0.75,
+      "mean_minutes_per_ticket": 122.2,
+      "answerable_from_docs_pct": 92.31
+    }
+  },
+  "never_automate_by_intent": {
+    "compliance_request": {
+      "flagged": 26,
+      "tickets": 26,
+      "flagged_pct": 100.0
+    },
+    "feature_request": {
+      "flagged": 20,
+      "tickets": 20,
+      "flagged_pct": 100.0
+    },
+    "security_incident": {
+      "flagged": 26,
+      "tickets": 26,
+      "flagged_pct": 100.0
+    },
+    "unclear_request": {
+      "flagged": 15,
+      "tickets": 15,
+      "flagged_pct": 100.0
+    }
+  }
+}

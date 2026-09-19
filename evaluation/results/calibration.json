@@ -1,0 +1,498 @@
+{
+  "n_records": 500,
+  "folds": 5,
+  "assumed_cost_of_wrong_automation": 12.0,
+  "intent_accuracy_pct": 99.8,
+  "intent_ece_points": 39.79,
+  "readiness_ece_points": 4.24,
+  "intent_calibration": [
+    {
+      "band": "0.0-0.1",
+      "n": 1,
+      "mean_stated": 0.0641,
+      "observed": 0.0,
+      "gap_points": 6.41
+    },
+    {
+      "band": "0.1-0.2",
+      "n": 6,
+      "mean_stated": 0.1395,
+      "observed": 1.0,
+      "gap_points": -86.05
+    },
+    {
+      "band": "0.2-0.3",
+      "n": 18,
+      "mean_stated": 0.2442,
+      "observed": 1.0,
+      "gap_points": -75.58
+    },
+    {
+      "band": "0.3-0.4",
+      "n": 31,
+      "mean_stated": 0.3583,
+      "observed": 1.0,
+      "gap_points": -64.17
+    },
+    {
+      "band": "0.4-0.5",
+      "n": 77,
+      "mean_stated": 0.4635,
+      "observed": 1.0,
+      "gap_points": -53.65
+    },
+    {
+      "band": "0.5-0.6",
+      "n": 89,
+      "mean_stated": 0.5549,
+      "observed": 1.0,
+      "gap_points": -44.51
+    },
+    {
+      "band": "0.6-0.7",
+      "n": 124,
+      "mean_stated": 0.6559,
+      "observed": 1.0,
+      "gap_points": -34.41
+    },
+    {
+      "band": "0.7-0.8",
+      "n": 125,
+      "mean_stated": 0.7484,
+      "observed": 1.0,
+      "gap_points": -25.16
+    },
+    {
+      "band": "0.8-0.9",
+      "n": 29,
+      "mean_stated": 0.8215,
+      "observed": 1.0,
+      "gap_points": -17.85
+    }
+  ],
+  "readiness_calibration": [
+    {
+      "band": "0.0-0.1",
+      "n": 69,
+      "mean_stated": 0.0205,
+      "observed": 0.058,
+      "gap_points": -3.74
+    },
+    {
+      "band": "0.1-0.2",
+      "n": 17,
+      "mean_stated": 0.1444,
+      "observed": 0.1765,
+      "gap_points": -3.21
+    },
+    {
+      "band": "0.2-0.3",
+      "n": 11,
+      "mean_stated": 0.25,
+      "observed": 0.0909,
+      "gap_points": 15.91
+    },
+    {
+      "band": "0.3-0.4",
+      "n": 14,
+      "mean_stated": 0.352,
+      "observed": 0.4286,
+      "gap_points": -7.65
+    },
+    {
+      "band": "0.4-0.5",
+      "n": 11,
+      "mean_stated": 0.4441,
+      "observed": 0.5455,
+      "gap_points": -10.13
+    },
+    {
+      "band": "0.5-0.6",
+      "n": 19,
+      "mean_stated": 0.564,
+      "observed": 0.7368,
+      "gap_points": -17.28
+    },
+    {
+      "band": "0.6-0.7",
+      "n": 55,
+      "mean_stated": 0.6568,
+      "observed": 0.7273,
+      "gap_points": -7.04
+    },
+    {
+      "band": "0.7-0.8",
+      "n": 184,
+      "mean_stated": 0.7647,
+      "observed": 0.7609,
+      "gap_points": 0.38
+    },
+    {
+      "band": "0.8-0.9",
+      "n": 102,
+      "mean_stated": 0.8458,
+      "observed": 0.7941,
+      "gap_points": 5.17
+    },
+    {
+      "band": "0.9-1.0",
+      "n": 18,
+      "mean_stated": 0.9444,
+      "observed": 0.8889,
+      "gap_points": 5.55
+    }
+  ],
+  "sweep": [
+    {
+      "threshold": 0.05,
+      "automation_rate_pct": 82.4,
+      "escalation_rate_pct": 17.6,
+      "automation_precision_pct": 75.24,
+      "automation_recall_pct": 99.68,
+      "wrong_automations": 102,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 377.2
+    },
+    {
+      "threshold": 0.1,
+      "automation_rate_pct": 81.6,
+      "escalation_rate_pct": 18.4,
+      "automation_precision_pct": 75.25,
+      "automation_recall_pct": 98.71,
+      "wrong_automations": 101,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 377.4
+    },
+    {
+      "threshold": 0.15,
+      "automation_rate_pct": 80.8,
+      "escalation_rate_pct": 19.2,
+      "automation_precision_pct": 75.25,
+      "automation_recall_pct": 97.75,
+      "wrong_automations": 100,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 377.6
+    },
+    {
+      "threshold": 0.2,
+      "automation_rate_pct": 80.4,
+      "escalation_rate_pct": 19.6,
+      "automation_precision_pct": 75.62,
+      "automation_recall_pct": 97.75,
+      "wrong_automations": 98,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 374.4
+    },
+    {
+      "threshold": 0.25,
+      "automation_rate_pct": 80.0,
+      "escalation_rate_pct": 20.0,
+      "automation_precision_pct": 76.0,
+      "automation_recall_pct": 97.75,
+      "wrong_automations": 96,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 371.2
+    },
+    {
+      "threshold": 0.3,
+      "automation_rate_pct": 79.4,
+      "escalation_rate_pct": 20.6,
+      "automation_precision_pct": 76.32,
+      "automation_recall_pct": 97.43,
+      "wrong_automations": 94,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 368.6
+    },
+    {
+      "threshold": 0.35,
+      "automation_rate_pct": 78.6,
+      "escalation_rate_pct": 21.4,
+      "automation_precision_pct": 76.84,
+      "automation_recall_pct": 97.11,
+      "wrong_automations": 91,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 364.4
+    },
+    {
+      "threshold": 0.4,
+      "automation_rate_pct": 77.2,
+      "escalation_rate_pct": 22.8,
+      "automation_precision_pct": 76.94,
+      "automation_recall_pct": 95.5,
+      "wrong_automations": 89,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 364.2
+    },
+    {
+      "threshold": 0.45,
+      "automation_rate_pct": 75.8,
+      "escalation_rate_pct": 24.2,
+      "automation_precision_pct": 77.57,
+      "automation_recall_pct": 94.53,
+      "wrong_automations": 85,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 359.6
+    },
+    {
+      "threshold": 0.5,
+      "automation_rate_pct": 75.2,
+      "escalation_rate_pct": 24.8,
+      "automation_precision_pct": 77.39,
+      "automation_recall_pct": 93.57,
+      "wrong_automations": 85,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 361.4
+    },
+    {
+      "threshold": 0.55,
+      "automation_rate_pct": 73.6,
+      "escalation_rate_pct": 26.4,
+      "automation_precision_pct": 77.45,
+      "automation_recall_pct": 91.64,
+      "wrong_automations": 83,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 361.8
+    },
+    {
+      "threshold": 0.6,
+      "automation_rate_pct": 71.4,
+      "escalation_rate_pct": 28.6,
+      "automation_precision_pct": 77.59,
+      "automation_recall_pct": 89.07,
+      "wrong_automations": 80,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 361.8
+    },
+    {
+      "threshold": 0.65,
+      "automation_rate_pct": 67.6,
+      "escalation_rate_pct": 32.4,
+      "automation_precision_pct": 77.81,
+      "automation_recall_pct": 84.57,
+      "wrong_automations": 75,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 362.2
+    },
+    {
+      "threshold": 0.7,
+      "automation_rate_pct": 60.8,
+      "escalation_rate_pct": 39.2,
+      "automation_precision_pct": 77.96,
+      "automation_recall_pct": 76.21,
+      "wrong_automations": 67,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 365.0
+    },
+    {
+      "threshold": 0.75,
+      "automation_rate_pct": 51.4,
+      "escalation_rate_pct": 48.6,
+      "automation_precision_pct": 79.77,
+      "automation_recall_pct": 65.92,
+      "wrong_automations": 52,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 360.2
+    },
+    {
+      "threshold": 0.8,
+      "automation_rate_pct": 24.0,
+      "escalation_rate_pct": 76.0,
+      "automation_precision_pct": 80.83,
+      "automation_recall_pct": 31.19,
+      "wrong_automations": 23,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 378.6
+    },
+    {
+      "threshold": 0.85,
+      "automation_rate_pct": 13.4,
+      "escalation_rate_pct": 86.6,
+      "automation_precision_pct": 82.09,
+      "automation_recall_pct": 17.68,
+      "wrong_automations": 12,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 386.2
+    },
+    {
+      "threshold": 0.9,
+      "automation_rate_pct": 3.6,
+      "escalation_rate_pct": 96.4,
+      "automation_precision_pct": 88.89,
+      "automation_recall_pct": 5.14,
+      "wrong_automations": 2,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 393.6
+    },
+    {
+      "threshold": 0.95,
+      "automation_rate_pct": 1.4,
+      "escalation_rate_pct": 98.6,
+      "automation_precision_pct": 85.71,
+      "automation_recall_pct": 1.93,
+      "wrong_automations": 1,
+      "unsafe_automations": 0,
+      "modelled_cost_per_100_tickets": 398.0
+    }
+  ],
+  "legacy_intent_confidence_sweep": [
+    {
+      "threshold": 0.05,
+      "automation_rate_pct": 82.6,
+      "automation_precision_pct": 75.3,
+      "automation_recall_pct": 100.0
+    },
+    {
+      "threshold": 0.1,
+      "automation_rate_pct": 82.4,
+      "automation_precision_pct": 75.24,
+      "automation_recall_pct": 99.68
+    },
+    {
+      "threshold": 0.15,
+      "automation_rate_pct": 81.8,
+      "automation_precision_pct": 75.31,
+      "automation_recall_pct": 99.04
+    },
+    {
+      "threshold": 0.2,
+      "automation_rate_pct": 81.4,
+      "automation_precision_pct": 75.18,
+      "automation_recall_pct": 98.39
+    },
+    {
+      "threshold": 0.25,
+      "automation_rate_pct": 79.6,
+      "automation_precision_pct": 75.38,
+      "automation_recall_pct": 96.46
+    },
+    {
+      "threshold": 0.3,
+      "automation_rate_pct": 78.8,
+      "automation_precision_pct": 75.63,
+      "automation_recall_pct": 95.82
+    },
+    {
+      "threshold": 0.35,
+      "automation_rate_pct": 76.8,
+      "automation_precision_pct": 75.52,
+      "automation_recall_pct": 93.25
+    },
+    {
+      "threshold": 0.4,
+      "automation_rate_pct": 74.0,
+      "automation_precision_pct": 75.41,
+      "automation_recall_pct": 89.71
+    },
+    {
+      "threshold": 0.45,
+      "automation_rate_pct": 70.6,
+      "automation_precision_pct": 75.92,
+      "automation_recall_pct": 86.17
+    },
+    {
+      "threshold": 0.5,
+      "automation_rate_pct": 61.0,
+      "automation_precision_pct": 76.07,
+      "automation_recall_pct": 74.6
+    },
+    {
+      "threshold": 0.55,
+      "automation_rate_pct": 54.2,
+      "automation_precision_pct": 75.65,
+      "automation_recall_pct": 65.92
+    },
+    {
+      "threshold": 0.6,
+      "automation_rate_pct": 45.0,
+      "automation_precision_pct": 75.56,
+      "automation_recall_pct": 54.66
+    },
+    {
+      "threshold": 0.65,
+      "automation_rate_pct": 36.0,
+      "automation_precision_pct": 72.22,
+      "automation_recall_pct": 41.8
+    },
+    {
+      "threshold": 0.7,
+      "automation_rate_pct": 26.2,
+      "automation_precision_pct": 70.99,
+      "automation_recall_pct": 29.9
+    },
+    {
+      "threshold": 0.75,
+      "automation_rate_pct": 15.2,
+      "automation_precision_pct": 64.47,
+      "automation_recall_pct": 15.76
+    },
+    {
+      "threshold": 0.8,
+      "automation_rate_pct": 5.2,
+      "automation_precision_pct": 73.08,
+      "automation_recall_pct": 6.11
+    },
+    {
+      "threshold": 0.85,
+      "automation_rate_pct": 0.2,
+      "automation_precision_pct": 0.0,
+      "automation_recall_pct": 0.0
+    },
+    {
+      "threshold": 0.9,
+      "automation_rate_pct": 0.0,
+      "automation_precision_pct": 0.0,
+      "automation_recall_pct": 0.0
+    },
+    {
+      "threshold": 0.95,
+      "automation_rate_pct": 0.0,
+      "automation_precision_pct": 0.0,
+      "automation_recall_pct": 0.0
+    }
+  ],
+  "recommendation": {
+    "threshold": 0.45,
+    "modelled_cost_per_100_tickets": 359.6,
+    "automation_rate_pct": 75.8,
+    "escalation_rate_pct": 24.2,
+    "automation_precision_pct": 77.57,
+    "automation_recall_pct": 94.53
+  },
+  "sensitivity": [
+    {
+      "assumed_cost_of_wrong_automation": 4.0,
+      "chosen_threshold": 0.05,
+      "automation_rate_pct": 82.4,
+      "escalation_rate_pct": 17.6,
+      "automation_precision_pct": 75.24
+    },
+    {
+      "assumed_cost_of_wrong_automation": 8.0,
+      "chosen_threshold": 0.45,
+      "automation_rate_pct": 75.8,
+      "escalation_rate_pct": 24.2,
+      "automation_precision_pct": 77.57
+    },
+    {
+      "assumed_cost_of_wrong_automation": 12.0,
+      "chosen_threshold": 0.45,
+      "automation_rate_pct": 75.8,
+      "escalation_rate_pct": 24.2,
+      "automation_precision_pct": 77.57
+    },
+    {
+      "assumed_cost_of_wrong_automation": 20.0,
+      "chosen_threshold": 0.9,
+      "automation_rate_pct": 3.6,
+      "escalation_rate_pct": 96.4,
+      "automation_precision_pct": 88.89
+    },
+    {
+      "assumed_cost_of_wrong_automation": 40.0,
+      "chosen_threshold": 0.95,
+      "automation_rate_pct": 1.4,
+      "escalation_rate_pct": 98.6,
+      "automation_precision_pct": 85.71
+    }
+  ]
+}

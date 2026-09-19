@@ -1,0 +1,108 @@
+{
+  "top_k": 3,
+  "lexical_only": {
+    "backend": "lexical only: TF-IDF (dense ranking disabled by configuration)",
+    "evaluated_on": 357,
+    "hit_rate_pct": 89.08,
+    "hit_rate_at_1_pct": 85.15,
+    "mean_reciprocal_rank": 0.8711,
+    "returned_nothing": 19,
+    "segments": {
+      "language_fluency": {
+        "fluent": {
+          "n": 270,
+          "hit_rate_pct": 90.37
+        },
+        "non_fluent": {
+          "n": 87,
+          "hit_rate_pct": 85.06
+        }
+      },
+      "channel": {
+        "chat": {
+          "n": 119,
+          "hit_rate_pct": 84.87
+        },
+        "docs_comment": {
+          "n": 48,
+          "hit_rate_pct": 91.67
+        },
+        "email": {
+          "n": 153,
+          "hit_rate_pct": 91.5
+        },
+        "forum": {
+          "n": 37,
+          "hit_rate_pct": 89.19
+        }
+      },
+      "customer_tier": {
+        "business": {
+          "n": 123,
+          "hit_rate_pct": 86.99
+        },
+        "enterprise": {
+          "n": 59,
+          "hit_rate_pct": 94.92
+        },
+        "standard": {
+          "n": 175,
+          "hit_rate_pct": 88.57
+        }
+      }
+    }
+  },
+  "hybrid": {
+    "backend": "hybrid tier 2: latent semantic indexing (128 dims) fused with TF-IDF \u2014 semantic index unavailable (403 Forbidden); using lexical only",
+    "evaluated_on": 357,
+    "hit_rate_pct": 89.08,
+    "hit_rate_at_1_pct": 85.15,
+    "mean_reciprocal_rank": 0.8711,
+    "returned_nothing": 19,
+    "segments": {
+      "language_fluency": {
+        "fluent": {
+          "n": 270,
+          "hit_rate_pct": 90.37
+        },
+        "non_fluent": {
+          "n": 87,
+          "hit_rate_pct": 85.06
+        }
+      },
+      "channel": {
+        "chat": {
+          "n": 119,
+          "hit_rate_pct": 84.87
+        },
+        "docs_comment": {
+          "n": 48,
+          "hit_rate_pct": 91.67
+        },
+        "email": {
+          "n": 153,
+          "hit_rate_pct": 91.5
+        },
+        "forum": {
+          "n": 37,
+          "hit_rate_pct": 89.19
+        }
+      },
+      "customer_tier": {
+        "business": {
+          "n": 123,
+          "hit_rate_pct": 86.99
+        },
+        "enterprise": {
+          "n": 59,
+          "hit_rate_pct": 94.92
+        },
+        "standard": {
+          "n": 175,
+          "hit_rate_pct": 88.57
+        }
+      }
+    }
+  },
+  "difference_points": 0.0
+}
