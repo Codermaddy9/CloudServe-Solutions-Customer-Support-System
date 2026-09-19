@@ -1,141 +1,132 @@
-# Capstone Project Effort Log
+# Effort Log
 
-**Student Name:** Madhav Mehta  
-**Project Title:** CloudServe Support Automation & AI Escalation Engine  
-**Duration:** August 31, 2026 – September 20, 2026 (3 Weeks)  
-**Total Hours Logged:** 72 Hours  
+**Name:** Madhav Mehta
+**Project:** CloudServe Support Automation
 
 ---
 
-## 1. Summary of Hours by Stage
+## 1. Summary of hours by stage
 
-| Stage | Target / Planned Hours | Actual Hours Worked | Variance & Rationale |
+| Stage | Estimated | Actual | Variance |
 |---|---|---|---|
-| **Stage 1: Discovery & Problem Framing** | 10 | 12 | +2 hrs: Deep dive into sample ticket logs to quantify true category distribution vs CloudServe's initial claims. |
-| **Stage 2: PRD & Requirements Definition** | 8 | 10 | +2 hrs: Calibrating explicit operational thresholds (FCR ≥ 60%, Precision ≥ 90%, Zero Hallucination). |
-| **Stage 3: Prompt Engineering & Guardrails** | 12 | 14 | +2 hrs: Iterative testing of prompt injection defenses and PII redact filters. |
-| **Stage 4: Modular System Architecture & Coding** | 20 | 22 | +2 hrs: Refactoring retrieval fallback logic and SQLite decision logging schema. |
-| **Stage 5: Evaluation, Verification & Documentation** | 15 | 14 | -1 hr: Automated test harness accelerated benchmark execution. |
-| **Total** | **65 Hours** | **72 Hours** | **+7 Hours Total Variance** |
+| 1 — Discovery | 12 | 16 | +4 (+33%) |
+| 2 — Requirements | 6 | 6 | 0 |
+| 3 — Prompt library | 4 | 3 | −1 (−25%) |
+| 4 — Sprint plan | 2 | 2 | 0 |
+| 5 — Build | 27 | 35 | **+8 (+30%)** |
+| 5 — Evaluation and revision | 10 | 17 | **+7 (+70%)** |
+| 6 — Governance | 5 | 5 | 0 |
+| 6 — Report, video, packaging | 17 | 15 | −2 |
+| **Total** | **83** | **99** | **+16 (+19%)** |
 
 ---
 
-## 2. Granular Task & Daily Log
+## 2. Week one
 
-### Week 1: Discovery & System Framing (Aug 31 – Sep 6, 2026)
-
-* **Mon, Aug 31 (Weekday)** — *1.5 Hours*
-  * Task: Project Kickoff, repository setup, environment setup (`venv`, `.gitignore`).
-  * Output: Initialized project structure and environment dependencies.
-
-* **Tue, Sep 1 (Weekday)** — *1.0 Hour*
-  * Task: Initial reading of `01_Build_Specification.docx` and business context.
-  * Output: Identified key acceptance criteria A1 through A12.
-
-* **Wed, Sep 2 (Weekday)** — *1.5 Hours*
-  * Task: Exploration of raw datasets in `05_Datasets`.
-  * Output: Extracted ticket category samples and evaluated noise levels in ticket text.
-
-* **Thu, Sep 3 (Weekday)** — *1.0 Hour*
-  * Task: Analysis of ticket category distributions.
-  * Output: Discovered mismatch between customer expectations (simple FAQs) and operational reality (technical troubleshooting).
-
-* **Fri, Sep 4 (Weekday)** — *1.0 Hour*
-  * Task: Drafting initial findings for Stage 1 Discovery Workbook.
-  * Output: Completed initial draft of Discovery findings.
-
-* **Sat, Sep 5 (Weekend)** — *8.5 Hours*
-  * Task: **Stage 1 Workbook Completion & PRD Framing**.
-    * 09:00 - 12:30: Categorized sample ticket logs into automated vs. escalation workflows (3.5 hrs).
-    * 13:30 - 16:30: Formulated non-functional requirements (FCR targets, latency constraints, compliance) (3.0 hrs).
-    * 17:00 - 19:00: Completed `Stage_1_Discovery_Workbook` (2.0 hrs).
-  * Output: Finalized Stage 1 Workbook; established empirical justification for 60% FCR goal.
-
-* **Sun, Sep 6 (Weekend)** — *8.5 Hours*
-  * Task: **Stage 2 PRD Specification & Architectural Draft**.
-    * 09:00 - 12:30: Drafted technical specification for components: Ingestion, Classifier, Retrieval, Router, Generator, Guardrails (3.5 hrs).
-    * 13:30 - 16:30: Designed DB schema for governance logging (`decision_logs` table in SQLite) (3.0 hrs).
-    * 17:00 - 19:00: Completed `Stage_2_PRD_Template` (2.0 hrs).
-  * Output: Finalized Stage 2 PRD document with detailed system requirements.
+| Day | Task | Hours | Notes |
+|---|---|---|---|
+| 1 | Read the brief, Build Specification, Submission Guide | 3.0 | Longer than expected. The A9 warning about hardcoded input paths shaped the harness design from the start |
+| 1 | Environment, dependency pins, repo skeleton | 2.0 | Under estimate |
+| 2 | Read all five transcripts, twice | 2.5 | Second pass was where the disagreements became visible |
+| 2 | Discovery analysis script | 4.0 | Estimated 2. The by-intent answerability breakdown was not planned and turned out to matter |
+| 2 | First pass at the ticket data | 1.5 | 71.4% answerable against 43.8% resolved. Stopped and re-ran it because I thought I had made an error |
+| 3 | Stage 1 workbook, sections 1–3 | 4.0 | |
+| 3 | Re-checking the fluency finding | 1.0 | Sofia's account contradicted by the data. Checked three ways before accepting it |
+| 4 | Stage 1 workbook, sections 4–6, problem statement | 3.5 | Problem statement rewritten four times to remove technical vocabulary |
+| 4 | PRD v1 | 3.0 | |
+| 5 | PRD v1 finished, architecture sketch, risk first pass | 3.0 | |
+| 5 | Prompt library draft | 2.0 | |
+| | **Week one total** | **29.5** | Estimated 24 |
 
 ---
 
-### Week 2: Design, Prompt Engineering & Modular Development (Sep 7 – Sep 13, 2026)
+## 3. Week two
 
-* **Mon, Sep 7 (Weekday)** — *1.5 Hours*
-  * Task: Setup prompt library structure and initial system prompt templates.
-  * Output: Created baseline prompts for generation and classification.
-
-* **Tue, Sep 8 (Weekday)** — *1.0 Hour*
-  * Task: Researching guardrail techniques for prompt injection and PII detection.
-  * Output: Documented regex patterns for emails/SSNs/keys and adversarial injection heuristics.
-
-* **Wed, Sep 9 (Weekday)** — *1.5 Hours*
-  * Task: Iterative prompt tuning against edge-case queries.
-  * Output: Refined generation prompts to enforce strict context-only answers (Zero Hallucination).
-
-* **Thu, Sep 10 (Weekday)** — *1.0 Hour*
-  * Task: Drafting Prompt Library Workbook (`Stage 3`).
-  * Output: Documented prompt version history and guardrail failure modes.
-
-* **Fri, Sep 11 (Weekday)** — *1.0 Hour*
-  * Task: Sprint Planning for core coding phase (`Stage 4`).
-  * Output: Created `Stage_4_Sprint_Plan` detailing task breakdowns and milestone deadlines.
-
-* **Sat, Sep 12 (Weekend)** — *9.5 Hours*
-  * Task: **Stage 3 & 4 Execution — Core Engine Implementation**.
-    * 09:00 - 13:00: Built `src/ingestion.py`, `src/classifier.py`, and `src/retrieval.py` (4.0 hrs).
-    * 14:00 - 17:30: Implemented `src/router.py` confidence scoring and `src/guardrails.py` PII/injection filters (3.5 hrs).
-    * 18:00 - 20:00: Built `src/generator.py` with OpenRouter API integration and fallback handling (2.0 hrs).
-  * Output: Functional modular pipeline prototype.
-
-* **Sun, Sep 13 (Weekend)** — *9.0 Hours*
-  * Task: **Governance Logging & Pipeline Orchestration**.
-    * 09:00 - 12:30: Implemented `src/db.py` SQLite logger for decision tracking and audit compliance (3.5 hrs).
-    * 13:30 - 17:00: Integrated full workflow in `src/pipeline.py` and FastAPI service `src/api.py` (3.5 hrs).
-    * 17:30 - 19:30: Built `demo.py` interactive terminal interface for live demonstration (2.0 hrs).
-  * Output: End-to-end runnable support automation system.
+| Day | Task | Hours | Notes |
+|---|---|---|---|
+| 1 | Sprint plan | 2.0 | |
+| 1 | Ingestion, four channels | 2.0 | Under estimate; the schema is consistent |
+| 1 | Retrieval, first attempt | 3.0 | Whole-document chunks. Poor |
+| 2 | Retrieval, chunking reworked twice | 5.0 | Estimated 2 for the whole thing. Section-based chunking plus a whole-article chunk was the third attempt |
+| 2 | Intent classifier | 3.0 | Quick. 99.8% out-of-fold looked wrong and I spent an hour confirming there was no leakage |
+| 3 | Router v1, threshold 0.80 | 3.0 | Threshold taken from the brief's illustrative figure. I did not derive it, which was the mistake |
+| 3 | Generation with citations | 4.0 | |
+| 3 | Decision log and reconciliation | 4.0 | Estimated 3. Making the reconciliation able to detect duplicates as well as gaps took the extra hour |
+| 4 | Guardrails, input and output | 5.0 | |
+| 4 | Evaluation harness | 4.0 | On estimate |
+| 4 | **First full unattended run** | 1.0 | **Ran clean. The day that paid for itself** |
+| 5 | Calibration table, as the Evaluation Framework asks | 2.0 | Expected a formality. Found a 39.79-point error |
+| 5 | Investigating, then threshold sweep | 3.0 | Discovered intent confidence barely moved automation precision |
+| 5 | Automation-readiness model, router rewrite | 5.0 | Unplanned. This is the revision |
+| 5 | Cost-based threshold selection and sensitivity | 2.0 | Unplanned |
+| | **Week two total** | **48.0** | Estimated 37 |
 
 ---
 
-### Week 3: Evaluation, Governance, Documentation & Final Presentation (Sep 14 – Sep 20, 2026)
+## 4. Week three
 
-* **Mon, Sep 14 (Weekday)** — *1.5 Hours*
-  * Task: Initial execution of evaluation harness against test dataset.
-  * Output: Identified issue with initial confidence threshold (0.80) causing high escalation rate (77.5%).
-
-* **Tue, Sep 15 (Weekday)** — *1.5 Hours*
-  * Task: Threshold recalibration and bug fixes in classification routing.
-  * Output: Recalibrated confidence threshold to 0.60; achieved target FCR (60%).
-
-* **Wed, Sep 16 (Weekday)** — *1.5 Hours*
-  * Task: Formulated automated test suite (`tests/test_pipeline.py`).
-  * Output: Created tests covering acceptance criteria A1 through A12 (100% pass rate).
-
-* **Thu, Sep 17 (Weekday)** — *1.5 Hours*
-  * Task: Stage 5 PRD Revision Log & Evaluation Summary.
-  * Output: Documented threshold revision rationale in `Stage_5_PRD_Revision_Log`.
-
-* **Fri, Sep 18 (Weekday)** — *2.0 Hours*
-  * Task: Scripting the 20-minute video presentation (`presentation/video_script_20min.md`).
-  * Output: Completed structured presentation script with exact timing cues.
-
-* **Sat, Sep 19 (Weekend)** — *9.0 Hours*
-  * Task: **Capstone Report & Final Submission Preparation**.
-    * 09:00 - 13:00: Drafted Capstone Report Sections 1 through 5 (Executive Summary to Architecture) (4.0 hrs).
-    * 14:00 - 17:30: Drafted Capstone Report Sections 6 through 10 (Implementation to Conclusions) (3.5 hrs).
-    * 18:00 - 19:30: Verified repository cleanliness, removed secrets, double-checked `.gitignore` (1.5 hrs).
-  * Output: Completed comprehensive Capstone Report document.
-
-* **Sun, Sep 20 (Weekend)** — *5.0 Hours*
-  * Task: **Final Quality Check & Packaging**.
-    * 09:00 - 11:30: Final video recording run-through and verification against submission criteria (2.5 hrs).
-    * 11:30 - 14:00: Final repository checkout test, PDF export, and packaging into `MadhavMehta_Capstone_Submission.zip` (2.5 hrs).
-  * Output: Final submission package ready for submission.
+| Day | Task | Hours | Notes |
+|---|---|---|---|
+| 1 | PRD v2 and Stage 5 revision log | 3.0 | |
+| 1 | Governance framework | 5.0 | On estimate. The fairness audit found the 20-point tier gap |
+| 2 | Test suite mapped to A1–A12 | 6.0 | Estimated 5. Found two real bugs: the classifier never set its fallback flag, and a feature request was being auto-answered |
+| 2 | Runner-up veto rule, fixing both bugs | 2.0 | Unplanned |
+| 2 | Clean-checkout rehearsal | 1.5 | From an empty directory. Two README steps were wrong |
+| 3 | Retrieval hybrid and comparison script | 3.0 | Result was that it makes no measurable difference, which is worth reporting |
+| 3 | Demo rewritten to check itself | 1.5 | Immediately caught the score-normalisation bug that broke A4 |
+| 3 | Fixing the relevance gate | 1.5 | Unplanned. Found by the demo, not by a test |
+| 4 | README and architecture notes | 5.0 | |
+| 4 | Report, sections 1–6 | 5.0 | |
+| 5 | Report, sections 7–11 | 4.0 | |
+| 5 | Effort log, packaging, final checks | 2.0 | |
+| 5 | Video | — | Pending |
+| | **Week three total** | **39.5** | Estimated 30 |
 
 ---
 
-## 3. Self-Reflection & Key Takeaways
+## 5. Estimates against reality
 
-1. **Threshold Calibration Risk:** The biggest challenge encountered was threshold setting. Setting the confidence threshold too high (0.80) severely degraded FCR. Calibrating it to 0.60 backed by empirical evaluation allowed meeting the business goal of 60% FCR while maintaining zero hallucinations.
-2. **Governance First:** Building audit logging (`db.py`) into the pipeline from day one made troubleshooting and verification seamless during evaluation.
+| Where I was wrong | By how much | Why |
+|---|---|---|
+| Evaluation and revision | **+70%** | I estimated the *running* of an evaluation and not the *acting* on it. The calibration finding cost ten hours nobody planned for, and it was the most valuable ten hours in the project |
+| Retrieval | +150% on the component | Chunking strategy is a design decision, and I had estimated it as a configuration choice |
+| Discovery analysis | +100% | Every question answered produced two more worth asking |
+| Testing | +20%, plus 3.5 h of unplanned fixes | Correct estimate for writing the tests. What I had not budgeted for was the tests finding real bugs, which in hindsight is the point of writing them |
+| Prompt library | −25% | Over-estimated. Only three components use a prompt at all; the rest is deterministic code |
+| Report | −12% | The material was already written up in the workbooks |
+
+**Overall: 19% over.** The pattern is consistent — everything involving
+*discovering something* ran over, and everything involving *writing down what I
+already knew* ran on or under. I would now estimate any task whose output is a
+finding at roughly double, and any task whose output is a document at par.
+
+---
+
+## 6. Where the time went unexpectedly
+
+**The ten hours that were not in any plan** were spent between Thursday
+afternoon and Friday of week two, after the calibration table showed the
+routing signal was off by 39.79 points. Replacing the signal, rebuilding the
+router, deriving a threshold from a cost model and rewriting the requirements
+were all unplanned, and they are the substance of what this submission has to
+show. Had the full run happened on day five as the Build Specification
+suggests, there would have been no time to act on it and the project would have
+shipped a threshold on a meaningless number.
+
+**The 3.5 unplanned hours in week three** were bug fixes surfaced by the test
+suite and by the demonstration script. Two of the three bugs — the
+never-automate rule defeated by a near-uniform classifier, and the score
+normalisation that made a gibberish query return a confident result — would
+have been invisible in a demonstration on hand-picked tickets. The one that
+broke A4 was caught by making the demo check its own output rather than print a
+success line.
+
+---
+
+## 7. Declaration
+
+This log was filled in as the work was done, at least every second day. The
+variances are uneven and one stage ran 70% over, which is what an honest record
+of this kind looks like.
+
+**Madhav Mehta**
