@@ -1,0 +1,14 @@
+# Environment and secrets
+.env
+*.env
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Local databases & run artifacts
+storage/*.db
+storage/chroma/
+evaluation/results/
