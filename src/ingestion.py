@@ -1,90 +1,114 @@
 """
-Ingestion and normalization module for CloudServe Support Automation.
+Ingestion and normalisation for CloudServe Support Automation.
 Satisfies Acceptance Criterion A2.
+
+Four channels arrive in four shapes. This module flattens them into one
+`NormalizedTicket` and keeps the original text and the original channel string,
+because both matter downstream: the channel drives urgency expectations (Ravi
+Menon waits differently for a pagination question than for a failing deploy)
+and the original text is what the decision log has to be able to show.
+
+Nothing in here raises. A malformed ticket produces a normalised object with
+empty fields rather than an exception, so that one bad record in a file of a
+hundred cannot end an unattended run.
 """
-from typing import Dict, Any, Union
 import html
 import unicodedata
+from typing import Any, Dict, Union
+
 from src.models import NormalizedTicket
 
-
+# Channel spellings seen across the four sources, mapped to the four canonical
+# values. Unrecognised channels are preserved on `original_channel` and treated
+# as email, which is the most permissive shape.
 CHANNEL_MAPPINGS = {
     "email": "email",
     "mail": "email",
+    "e-mail": "email",
     "chat": "chat",
     "live_chat": "chat",
+    "livechat": "chat",
     "forum": "forum",
     "community": "forum",
     "community_forum": "forum",
     "docs_comment": "docs_comment",
     "documentation_comment": "docs_comment",
     "doc_comment": "docs_comment",
-    "web_form": "forum",  # Map web form/portal to forum or standard channel
-    "portal": "forum"
+    "docs": "docs_comment",
 }
 
+CANONICAL_CHANNELS = {"email", "chat", "forum", "docs_comment"}
+VALID_TIERS = {"standard", "business", "enterprise"}
 
-def sanitize_text(text: Any) -> str:
-    """Sanitizes text, normalizes unicode, handles unusual characters."""
-    if text is None:
+# Bodies above this length are truncated before analysis. The longest genuine
+# ticket in the development corpus is far below it; anything larger is a paste
+# accident or an attack, and unbounded text would make latency unpredictable.
+MAX_BODY_CHARS = 20_000
+
+
+def sanitize_text(value: Any) -> str:
+    """
+    Normalise text from any channel.
+
+    Unescapes HTML entities (forum and docs comments arrive encoded), applies
+    NFKC normalisation so that visually identical characters compare equal, and
+    strips control characters other than newline, tab and carriage return.
+    """
+    if value is None:
         return ""
-    if not isinstance(text, str):
-        text = str(text)
-    
-    # Unescape HTML entities if any
-    text = html.unescape(text)
-    
-    # Normalize unicode to NFKC
-    text = unicodedata.normalize("NFKC", text)
-    
-    # Strip null bytes and non-printable control characters (except newline, tab, carriage return)
-    cleaned_chars = [
-        c for c in text
-        if c in ("\n", "\r", "\t") or (unicodedata.category(c)[0] != "C")
-    ]
-    return "".join(cleaned_chars).strip()
+    if not isinstance(value, str):
+        value = str(value)
+
+    value = html.unescape(value)
+    value = unicodedata.normalize("NFKC", value)
+    value = "".join(
+        ch for ch in value
+        if ch in ("\n", "\r", "\t") or unicodedata.category(ch)[0] != "C"
+    )
+    return value.strip()
 
 
 def normalize_ticket(raw_ticket: Union[Dict[str, Any], Any]) -> NormalizedTicket:
     """
-    Normalizes a ticket from any of the four channels into a unified NormalizedTicket.
-    Handles missing fields, unusual characters, and empty bodies without crashing.
+    Produce one internal representation from a ticket in any supported shape.
+
+    Handles missing fields, unusual characters and empty bodies without failing,
+    as A2 requires.
     """
     if not isinstance(raw_ticket, dict):
-        # Fallback if raw object has attribute access or is malformed
-        raw_ticket = getattr(raw_ticket, "__dict__", {})
+        raw_ticket = getattr(raw_ticket, "__dict__", {}) or {}
 
     ticket_id = str(raw_ticket.get("ticket_id") or "UNKNOWN-TICKET")
-    
-    # Channel normalization
-    raw_channel = str(raw_ticket.get("channel", "email")).lower().strip()
-    normalized_channel = CHANNEL_MAPPINGS.get(raw_channel, "email")
-    
-    subject = sanitize_text(raw_ticket.get("subject", ""))
-    body = sanitize_text(raw_ticket.get("body", ""))
-    received_at = str(raw_ticket.get("received_at", ""))
-    
-    customer_id = raw_ticket.get("customer_id")
-    customer_name = raw_ticket.get("customer_name")
-    
-    # Customer tier normalization
-    customer_tier = str(raw_ticket.get("customer_tier", "standard")).lower().strip()
-    if customer_tier not in ("standard", "business", "enterprise"):
-        customer_tier = "standard"
-        
-    customer_region = raw_ticket.get("customer_region")
-    language_fluency = raw_ticket.get("language_fluency")
+
+    raw_channel = str(raw_ticket.get("channel") or "email").lower().strip()
+    channel = CHANNEL_MAPPINGS.get(raw_channel)
+    if channel is None:
+        channel = raw_channel if raw_channel in CANONICAL_CHANNELS else "email"
+
+    subject = sanitize_text(raw_ticket.get("subject"))
+    body = sanitize_text(raw_ticket.get("body"))
+    if len(body) > MAX_BODY_CHARS:
+        body = body[:MAX_BODY_CHARS]
+
+    tier = str(raw_ticket.get("customer_tier") or "standard").lower().strip()
+    if tier not in VALID_TIERS:
+        tier = "standard"
+
+    def _optional(field: str):
+        value = raw_ticket.get(field)
+        return str(value) if value not in (None, "") else None
 
     return NormalizedTicket(
         ticket_id=ticket_id,
-        channel=normalized_channel,
+        channel=channel,
+        original_channel=raw_channel,
         subject=subject,
         body=body,
-        received_at=received_at,
-        customer_id=customer_id,
-        customer_name=customer_name,
-        customer_tier=customer_tier,
-        customer_region=customer_region,
-        language_fluency=language_fluency,
-        original_data=raw_ticket
+        received_at=str(raw_ticket.get("received_at") or ""),
+        customer_id=_optional("customer_id"),
+        customer_name=_optional("customer_name"),
+        customer_tier=tier,
+        customer_region=_optional("customer_region"),
+        language_fluency=_optional("language_fluency"),
+        original_data=raw_ticket,
     )

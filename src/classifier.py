@@ -34,10 +34,12 @@ class TicketClassifier:
 
     def __init__(self, dev_tickets_path: Optional[str] = None):
         if dev_tickets_path is None:
+            # Resolve relative to the project root (one level above src/)
+            project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             candidates = [
+                os.path.join(project_root, "05_Datasets", "development_tickets.json"),
+                os.path.join(project_root, "data", "development_tickets.json"),
                 os.path.join("05_Datasets", "development_tickets.json"),
-                os.path.join("..", "05_Datasets", "development_tickets.json"),
-                os.path.join("data", "development_tickets.json"),
                 "development_tickets.json"
             ]
             for cand in candidates:
@@ -129,7 +131,8 @@ class TicketClassifier:
                 intent_confidence=0.30,
                 urgency=urgency,
                 urgency_confidence=urg_conf,
-                alternatives_considered=[{"intent": self.FALLBACK_INTENT, "confidence": 0.30}]
+                alternatives_considered=[{"intent": self.FALLBACK_INTENT, "confidence": 0.30}],
+                is_fallback=True,
             )
 
         # Get probabilities from logistic regression
@@ -146,14 +149,14 @@ class TicketClassifier:
         
         # Format alternatives considered
         alternatives = [
-            {"intent": intent_name, "confidence": round(float(p), 4)}
-            for intent_name, p in ranked[:4]
+            {"intent": str(intent_name), "confidence": round(float(p), 4)}
+            for intent_name, p in ranked[:5]
         ]
 
         urgency, urg_conf = self._predict_urgency(text, ticket.customer_tier, top_intent)
 
         return ClassificationResult(
-            intent=top_intent,
+            intent=str(top_intent),
             intent_confidence=round(float(top_confidence), 4),
             urgency=urgency,
             urgency_confidence=urg_conf,

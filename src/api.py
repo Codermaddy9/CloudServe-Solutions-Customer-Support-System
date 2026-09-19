@@ -1,27 +1,40 @@
 """
-FastAPI Service for CloudServe Support Automation.
-Exposes endpoints for ticket processing, health check, metrics, and kill switch.
+FastAPI service for CloudServe Support Automation.
+
+The API and the evaluation harness share one `SupportPipeline`, so a ticket
+submitted here goes through exactly the same ingest, classification, retrieval,
+routing, generation, validation and logging path that the unattended run uses.
+There is no separate demonstration mode and no flag that relaxes the guardrails.
 """
 import os
-import uvicorn
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import Dict, Any, Optional
-from src.pipeline import SupportPipeline
-from src.models import ProcessedTicketOutput
+from typing import Any, Dict, Optional
 
+import uvicorn
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+from src.models import ProcessedTicketOutput
+from src.pipeline import SupportPipeline
+from src.router import DEFAULT_CONFIDENCE_THRESHOLD
 
 app = FastAPI(
-    title="CloudServe Support Automation API",
-    description="Intelligent Customer Support Pipeline with Ingest, Classify, Retrieve, Route, Guardrails, and Logging",
-    version="1.0.0"
+    title="CloudServe Support Automation",
+    description=(
+        "Ingests support tickets from four channels, classifies them, retrieves "
+        "supporting documentation, decides whether to answer or escalate, drafts "
+        "a cited answer, validates it before release, and logs every decision."
+    ),
+    version="2.0.0",
 )
 
-# Global pipeline instance
-pipeline = SupportPipeline()
+pipeline = SupportPipeline(
+    confidence_threshold=float(
+        os.getenv("CONFIDENCE_THRESHOLD", DEFAULT_CONFIDENCE_THRESHOLD))
+)
 
 
 class TicketInput(BaseModel):
+    """A ticket from any of the four channels. Only `body` is really required."""
     ticket_id: Optional[str] = None
     channel: str = "email"
     subject: str = ""
@@ -36,57 +49,80 @@ class TicketInput(BaseModel):
 
 class KillSwitchRequest(BaseModel):
     active: bool
+    operator: Optional[str] = None
+    reason: Optional[str] = None
 
 
 @app.get("/health")
-def health_check():
-    """Health check endpoint confirming API service status."""
+def health() -> Dict[str, Any]:
+    """Service health, plus the state of everything the pipeline depends on."""
     return {
         "status": "healthy",
-        "service": "CloudServe Support Automation",
-        "version": "1.0.0",
-        "kill_switch_active": pipeline.guardrails.kill_switch
+        "version": "2.0.0",
+        "kill_switch_active": pipeline.guardrails.kill_switch,
+        "confidence_threshold": pipeline.confidence_threshold,
+        "corpus_chunks_indexed": len(pipeline.retriever.chunks),
+        "classifier_trained": pipeline.classifier.is_trained,
+        "readiness_model_trained": pipeline.readiness.is_trained,
+        "model_provider_configured": pipeline.generator._provider_configured(),
     }
 
 
 @app.post("/ingest", response_model=ProcessedTicketOutput)
-def ingest_ticket(ticket: TicketInput):
+def ingest(ticket: TicketInput) -> ProcessedTicketOutput:
     """
-    Ingests, classifies, retrieves, routes, generates, and validates a ticket.
-    Logs decision to SQLite.
+    Process one ticket end to end.
+
+    Returns 200 in every case, including failure. A ticket that cannot be
+    processed comes back as an escalation with the reason attached, because a
+    500 would leave the caller with a ticket and no record of what happened to
+    it, and A11 requires the system to degrade rather than stop.
     """
-    try:
-        raw_dict = ticket.model_dump()
-        result = pipeline.process_ticket(raw_dict)
-        return result
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    return pipeline.process_ticket(ticket.model_dump())
 
 
 @app.get("/metrics")
-def get_metrics_summary():
-    """Returns total logged decisions and reconciliation status."""
-    total_decisions = pipeline.db.count_decisions()
-    unique_tickets = pipeline.db.count_unique_tickets()
+def metrics() -> Dict[str, Any]:
+    """Decision log totals and reconciliation state."""
+    total = pipeline.db.count_decisions()
+    unique = pipeline.db.count_unique_tickets()
     return {
-        "total_decisions_logged": total_decisions,
-        "unique_tickets_processed": unique_tickets,
-        "reconciliation_status": "PASS" if total_decisions >= unique_tickets else "MISMATCH"
+        "total_decisions_logged": total,
+        "unique_tickets_logged": unique,
+        "decisions_by_action": pipeline.db.count_by_action(),
+        "tickets_logged_more_than_once": pipeline.db.tickets_with_multiple_decisions(),
     }
 
 
 @app.post("/killswitch")
-def toggle_kill_switch(req: KillSwitchRequest):
-    """Activates or deactivates emergency kill switch."""
-    pipeline.guardrails.kill_switch = req.active
+def killswitch(request: KillSwitchRequest) -> Dict[str, Any]:
+    """
+    Stop or resume automated responding.
+
+    Takes effect on the next response with no restart and no deployment. While
+    it is engaged every drafted response is blocked by the guardrail engine and
+    the ticket goes to a human, so nothing is dropped.
+    """
+    pipeline.guardrails.kill_switch = request.active
+    pipeline.db.log_decision(
+        ticket_id="SYSTEM",
+        stage="kill_switch",
+        action_taken="block" if request.active else "auto_respond",
+        reason=(f"Kill switch {'engaged' if request.active else 'released'} by "
+                f"{request.operator or 'unidentified operator'}. "
+                f"Reason given: {request.reason or 'none'}."),
+        prediction_value="kill_switch",
+        prediction_confidence=1.0,
+    )
     return {
-        "status": "updated",
         "kill_switch_active": pipeline.guardrails.kill_switch,
-        "message": "Emergency kill switch toggled."
+        "effective": "immediately, on the next response",
+        "tickets_in_flight": "complete their current step, then escalate rather than send",
     }
 
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 8000))
-    print(f"Starting CloudServe Support API on http://0.0.0.0:{port}")
-    uvicorn.run("src.api:app", host="0.0.0.0", port=port, reload=False)
+    port = int(os.getenv("PORT", "8000"))
+    print(f"CloudServe Support Automation API on http://127.0.0.1:{port}")
+    print(f"Interactive documentation at http://127.0.0.1:{port}/docs")
+    uvicorn.run("src.api:app", host="127.0.0.1", port=port, reload=False)
