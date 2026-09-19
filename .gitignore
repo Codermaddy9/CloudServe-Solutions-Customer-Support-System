@@ -1,14 +1,18 @@
-# Environment and secrets
+# Secrets — never commit a real key
 .env
 *.env
+!.env.example
 
-# Python bytecode & cache
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
+.venv/
+venv/
+*.egg-info/
 
-# Local databases & run artifacts
+# Run artefacts
 storage/*.db
-storage/chroma/
-evaluation/results/
+evaluation/results/*.db
+evaluation/ci_results/
